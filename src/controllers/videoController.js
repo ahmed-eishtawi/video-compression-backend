@@ -48,11 +48,11 @@ export const uploadVideo = async (req, res) => {
       for (const qp of QP_values) {
         const h264_output_path = path.relative(
           process.cwd(),
-          path.join(h264_directory, `${file_name}_h264${qp}.mp4`)
+          path.join(h264_directory, `${file_name}_h264_qp_${qp}.mp4`)
         );
         const h265_output_path = path.relative(
           process.cwd(),
-          path.join(h265_directory, `${file_name}_h265${qp}.mp4`)
+          path.join(h265_directory, `${file_name}_h265_qp_${qp}.mp4`)
         );
 
         await encodeVideo(input_file_path, h264_output_path, "libx264", qp);
@@ -107,8 +107,8 @@ export const uploadVideo = async (req, res) => {
 
       /* Delete the encoded videos for each (h264, h265) */
       for (const qp of QP_values) {
-        fs.unlinkSync(path.join(h264_directory, `${file_name}_h264${qp}.mp4`));
-        fs.unlinkSync(path.join(h265_directory, `${file_name}_h265${qp}.mp4`));
+        fs.unlinkSync(path.join(h264_directory, `${file_name}_h264_qp_${qp}.mp4`));
+        fs.unlinkSync(path.join(h265_directory, `${file_name}_h265_qp_${qp}.mp4`));
       }
     }
   });
