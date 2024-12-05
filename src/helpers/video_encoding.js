@@ -1,49 +1,43 @@
 import ffmpeg from "fluent-ffmpeg";
 import subprocess from "child_process";
-import fs from "fs/promises";
-
-const resOptions = {
-  cif: "352x288",
-  qcif: "176x144",
-};
+import { res_options } from "../config";
 
 export const encodeVideo = (inputFilePath, outputPath, resolution, codec) => {
   return new Promise((resolve, reject) => {
-    const res = resOptions[resolution];
+    const res = res_options[resolution];
     if (!res) return reject(new Error(`Invalid resolution: ${resolution}`));
 
-    // Use FFmpeg with input format as raw YUV4MPEG pipe
-    ffmpeg(inputFilePath)
-      .inputFormat("yuv4mpegpipe") // Specify input format for .y4m files
-      .output(outputPath)
-      .videoCodec(codec)
-      .outputOptions([
-        `-vf scale=${res}`, // Scale video to the desired resolution
-        "-qp 28",           // Set Quantization Parameter for H.264 or H.265 encoding
-      ])
-      .on("start", (commandLine) => {
-        console.log("FFmpeg command:", commandLine); // For debugging
-      })
-      .on("end", () => {
-        console.log(`Encoding completed for: ${outputPath}`);
-        resolve(); // Resolve the promise once encoding is done
-      })
-      .on("error", (err) => {
-        console.error("Encoding error:", err.message);
-        reject(new Error(`Encoding error: ${err.message}`));
-      })
-      .run(); // Execute the FFmpeg command
+    // Construct FFmpeg command dynamically
+    const ffmpegCommand = `
+      ffmpeg -i ${inputFilePath} 
+      -c:v ${codec} 
+      -vf scale=${res} 
+      -qp 28 
+      ${outputPath}
+    `;
+
+    // Debugging the generated FFmpeg command
+    console.log("FFmpeg command:", ffmpegCommand);
+
+    subprocess.exec(ffmpegCommand, (err, stdout, stderr) => {
+      if (err) {
+        console.error("Encoding error:", stderr);
+        return reject(new Error(`Encoding error: ${stderr}`));
+      }
+      console.log(`Encoding completed for: ${outputPath}`);
+      resolve(stdout);
+    });
   });
 };
-
 
 export const getBitrate = (filePath) => {
   return new Promise((resolve, reject) => {
     subprocess.exec(
       `ffprobe -v error -select_streams v:0 -show_entries stream=bit_rate -of csv=p=0 ${filePath}`,
       (err, stdout) => {
-        if (err) return reject(new Error(`Error getting bitrate: ${err.message}`));
-        resolve(parseFloat(stdout) / 1000);
+        if (err)
+          return reject(new Error(`Error getting bitrate: ${err.message}`));
+        resolve(parseFloat(stdout) / 1000); // Return bitrate in kbps
       }
     );
   });
@@ -67,7 +61,8 @@ export const getQP = (filePath) => {
     subprocess.exec(
       `ffmpeg -i ${filePath} -vf qp -f null - 2>&1`,
       (err, stdout) => {
-        if (err) return reject(new Error(`Error calculating QP: ${err.message}`));
+        if (err)
+          return reject(new Error(`Error calculating QP: ${err.message}`));
         const qpMatch = stdout.match(/average qp:(\d+\.\d+)/);
         resolve(qpMatch ? parseFloat(qpMatch[1]) : null);
       }
