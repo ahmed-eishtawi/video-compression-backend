@@ -6,7 +6,7 @@ const multer_storage = multer.diskStorage({
     cb(null, path.resolve("uploads", "videos")); // save videos to "uploads/videos" dirctory
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Add the current time and file extension to file name
+    cb(null, Date.now() + path.extname(file.originalname)); // Add the current time to file name
   },
 });
 
