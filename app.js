@@ -15,6 +15,13 @@ const app = express();
 
 /* Enable CORS */
 app.use(cors(cors_config))
+// 
+
+
+/*default endpoint for heroku requirements*/
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 
 /* endpoint to upload video */
 app.post("/api/upload_video", uploadVideo); 
