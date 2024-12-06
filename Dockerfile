@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --only=production && npm install ffmpeg
+RUN npm install && npm install ffmpeg
 
 COPY . .
 
