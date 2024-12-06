@@ -1,3 +1,23 @@
+/* set Allowed origins */
+const allowed_origins = ['http://localhost:3000', 'https://anotherdomain.com'];
+
+/* CORS configuration */
+export const cors_config = {
+  origin: (origin, callback) => {
+    // If the origin is allowed or there is no origin (in case of server-to-server requests), allow it
+    if (!origin || allowed_origins.indexOf(origin) !== -1) {
+      callback(null, true);
+    }  
+    // If the origin is not allowed, reject the request
+    else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+};
+// 
+
 // standard Video resolutions
 export const res_options = {
   qcif: "176x144",

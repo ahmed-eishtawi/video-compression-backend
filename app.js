@@ -1,15 +1,25 @@
 import express from "express";
+import cors from 'cors'
 import dotenv from "dotenv";
 import { uploadVideo } from "./src/controllers/videoController.js";
+import { cors_config } from "./src/config/index.js";
 
+/* Load environment variables */
 dotenv.config();
 
-const PORT = process.env.PORT;
+/* Set up express server Port*/
+const PORT = process.env.PORT || 3000;
 
+/* Create express app */
 const app = express();
 
-app.post("/api/upload_video", uploadVideo); /* endpoint to upload video */
+/* Enable CORS */
+app.use(cors(cors_config))
 
+/* endpoint to upload video */
+app.post("/api/upload_video", uploadVideo); 
+
+/* Start server */
 app.listen(PORT, () => {
   console.log("Server running on port 3000");
 });
