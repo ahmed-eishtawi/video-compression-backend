@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-// import cors from 'cors'
+import cors from 'cors'
 // import { cors_config } from "./src/config/index.js";
 import { uploadVideo } from "./src/controllers/videoController.js";
 
@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 /* Enable CORS */
-// app.use(cors())
+app.use(cors())
 // 
 
 
