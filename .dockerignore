@@ -1,7 +1,5 @@
 node_modules/
 
-public/
-
 .env
 
 *.log
@@ -17,8 +15,6 @@ Thumbs.db
 docker-compose.yml
 docker-compose.override.yml
 Dockerfile
-
-uploads/
 
 .git
 .gitignore
