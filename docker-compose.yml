@@ -13,11 +13,10 @@ services:
     command: ["node", "app.js"]
 
   nginx:
-    image: nginx:latest
-    container_name: nginx-proxy
-    depends_on:
-      - app
-    ports:
-      - "80:80" # Exposes port 80 to the host
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Mounts the Nginx configuration
+  image: nginx:latest
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    - /etc/letsencrypt:/etc/letsencrypt:ro # Share the SSL certs
