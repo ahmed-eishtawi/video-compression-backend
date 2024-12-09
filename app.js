@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-// import { cors_config } from "./src/config/index.js";
+import { cors_config } from "./src/config/index.js";
 import { uploadVideo } from "./src/controllers/videoController.js";
 
 /* Load environment variables */
@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 /* Enable CORS for all origins*/
-app.use(cors());
+app.use(cors(cors_config));
 //
 
 /*default endpoint for heroku requirements*/

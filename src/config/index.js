@@ -1,5 +1,5 @@
 /* set Allowed origins */
-const allowed_origins = ['http://localhost:3000', 'https://anotherdomain.com'];
+const allowed_origins = ["http://localhost:3000", "https://anotherdomain.com"];
 
 /* CORS configuration */
 export const cors_config = {
@@ -7,16 +7,16 @@ export const cors_config = {
     // If the origin is allowed or there is no origin (in case of server-to-server requests), allow it
     if (!origin || allowed_origins.indexOf(origin) !== -1) {
       callback(null, true);
-    }  
+    }
     // If the origin is not allowed, reject the request
     else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
 };
-// 
+//
 
 // standard Video resolutions
 export const res_options = {
@@ -28,7 +28,7 @@ export const res_options = {
   uhd: "3840x2160",
 };
 
-export const QP_values = [1, 11, 21, 31, 41, 51];
+export const valid_qp_values = Array.from({ length: 52 }, (_, i) => i);
 // standard values for QP (Quantization Parameter)
 /* 
     0-19: very high quality, very low compression
