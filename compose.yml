@@ -6,11 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: video-compression-backend
+    hostname: frontend_container
     ports:
-      - "3000:3000" # Maps host port 3000 to container port 3000
+      - "3000" # Maps host port 3000 to container port 3000
     environment:
       NODE_ENV: production
     command: ["node", "app.js"]
+    networks:
+      - video_compression_network 
 
   nginx:
     image: nginx:latest
@@ -23,7 +26,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Mounts the Nginx configuration
       - /etc/letsencrypt:/etc/letsencrypt:ro # Mounts Let's Encrypt certificates
+    networks:
+      - video_compression_network
 
 networks:
-  default:
+  video_compression_network:
     driver: bridge
