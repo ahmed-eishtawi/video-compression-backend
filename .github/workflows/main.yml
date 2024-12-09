@@ -27,3 +27,4 @@ jobs:
         ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} "./deploy.sh"
     - name: cleanup
       run: rm -rf ~/.ssh
+      
