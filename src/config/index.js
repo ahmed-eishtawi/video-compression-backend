@@ -1,5 +1,8 @@
 /* set Allowed origins */
-const allowed_origins = ["http://localhost:3000", "https://anotherdomain.com"];
+const allowed_origins = [
+  "http://localhost:3000",
+  "https://video-compression.netlify.app",
+];
 
 /* CORS configuration */
 export const cors_config = {
