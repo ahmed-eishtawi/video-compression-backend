@@ -2,7 +2,7 @@
 const allowed_origins = [
   "http://localhost:3000",
   "https://video-compression.netlify.app",
-  "https://esnad-tech.ly",
+  "https://www.esnad-tech.ly",
 ];
 
 /* CORS configuration */
