@@ -60,6 +60,27 @@ export const uploadVideo = (req, res) => {
       });
     }
 
+    /* check if qp_values is empty */
+    if (qp_values.length === 0) {
+      /* delete uploaded file */
+      fs.unlinkSync(`uploads/videos/${req.file.filename}`);
+
+      /* return error response */
+      return res.status(400).json({
+        error: `No QP value provided`,
+      });
+    }
+
+    if (qp_values.length > 3) {
+      /* delete uploaded file */
+      fs.unlinkSync(`uploads/videos/${req.file.filename}`);
+
+      /* return error response */
+      return res.status(400).json({
+        error: `You can only provide a maximum of 3 QP values`,
+      });
+    }
+
     /* get uploaded file name */
     const uploaded_file_name = req.file.filename;
     const input_file_path = path.relative(
