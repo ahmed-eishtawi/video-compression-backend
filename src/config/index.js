@@ -1,8 +1,9 @@
 /* set Allowed origins */
 const allowed_origins = [
+  "http://localhost",
   "http://localhost:3000",
   "https://video-compression.netlify.app",
-  "https://www.esnad-tech.ly",
+  "https://cctt.esnad-tech.ly",
 ];
 
 /* CORS configuration */
