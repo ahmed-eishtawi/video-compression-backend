@@ -13,6 +13,14 @@ import upload from "../middlewares/multerConfig.js";
 
 export const uploadVideo = (req, res) => {
   let results = [];
+
+  /* check for the uploads Directory if not exist it will be created */
+  if (!fs.existsSync("uploads")) {
+    fs.mkdirSync("uploads");
+    fs.mkdirSync("uploads/videos");
+    console.log("uploads directory created");
+  }
+
   upload.single("video")(req, res, async (error) => {
     if (error) {
       if (error.status === 400) {
@@ -80,6 +88,7 @@ export const uploadVideo = (req, res) => {
         error: `You can only provide a maximum of 3 QP values`,
       });
     }
+    /* end of the validations */
 
     /* get uploaded file name */
     const uploaded_file_name = req.file.filename;
