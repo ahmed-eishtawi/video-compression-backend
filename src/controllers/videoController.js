@@ -18,7 +18,6 @@ export const uploadVideo = (req, res) => {
   if (!fs.existsSync("uploads")) {
     fs.mkdirSync("uploads");
     fs.mkdirSync("uploads/videos");
-    console.log("uploads directory created");
   }
 
   upload.single("video")(req, res, async (error) => {
