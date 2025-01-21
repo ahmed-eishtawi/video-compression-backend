@@ -8,7 +8,7 @@ import { uploadVideo } from "./src/controllers/videoController.js";
 dotenv.config();
 
 /* Set up express server Port*/
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 /* Create express app */
 const app = express();
@@ -17,7 +17,6 @@ const app = express();
 app.use(cors("*"));
 /* config for production */
 // app.use(cors(cors_config));
-// app.use(cors("*"));
 //
 
 /*default endpoint for heroku requirements*/
