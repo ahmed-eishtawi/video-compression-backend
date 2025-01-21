@@ -1,7 +1,10 @@
+import { getWiFiIP } from "../utils/getHostWifiIP.js";
+
 /* set Allowed origins */
 const allowed_origins = [
   "http://localhost",
   "http://localhost:3000",
+  `http://${getWiFiIP()}:3000`,
   "https://video-compression.netlify.app",
   "https://cctt.esnad-tech.ly",
 ];

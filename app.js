@@ -8,13 +8,14 @@ import { uploadVideo } from "./src/controllers/videoController.js";
 dotenv.config();
 
 /* Set up express server Port*/
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 /* Create express app */
 const app = express();
 
 /* Enable CORS for all origins*/
 app.use(cors(cors_config));
+// app.use(cors("*"));
 //
 
 /*default endpoint for heroku requirements*/
@@ -30,6 +31,6 @@ app.get("/", (req, res) => {
 app.post("/api/upload_video", uploadVideo);
 
 /* Start server */
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
