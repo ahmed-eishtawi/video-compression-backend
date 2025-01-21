@@ -31,6 +31,6 @@ app.get("/", (req, res) => {
 app.post("/api/upload_video", uploadVideo);
 
 /* Start server */
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

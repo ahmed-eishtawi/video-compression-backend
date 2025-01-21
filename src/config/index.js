@@ -4,9 +4,9 @@ import { getWiFiIP } from "../utils/getHostWifiIP.js";
 const allowed_origins = [
   "http://localhost",
   "http://localhost:3000",
-  `http://${getWiFiIP()}:3000`,
   "https://video-compression.netlify.app",
   "https://cctt.esnad-tech.ly",
+  `http://${getWiFiIP()}:3000`,
 ];
 
 /* CORS configuration */
